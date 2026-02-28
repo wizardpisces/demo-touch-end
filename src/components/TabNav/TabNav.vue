@@ -252,4 +252,25 @@ onBeforeUnmount(() => {
   border-radius: 0 !important;
   clip-path: polygon(15% 0, 85% 0, 100% 100%, 0% 100%);
 }
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .tab-nav { padding: 8px 12px 14px; }
+  .tab-track { gap: 4px; justify-content: flex-start; padding: 0 8px; }
+  .tab-btn { width: 100px; height: 40px; }
+  .tab-label { font-size: 13px; letter-spacing: 1px; }
+  .tab-reflection { display: none; }
+}
+
+@media (max-width: 480px) {
+  .tab-nav { padding: 6px 8px 10px; }
+  .tab-btn { width: 85px; height: 38px; }
+  .tab-label { font-size: 12px; letter-spacing: 0; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .tab-nav { padding: 4px 12px 8px; }
+  .tab-btn { height: 34px; }
+  .tab-reflection { display: none; }
+}
 </style>

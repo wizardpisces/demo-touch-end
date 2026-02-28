@@ -253,4 +253,32 @@ tbody tr.row-touched {
   padding: 60px; color: var(--color-text-muted); font-size: 16px;
   text-shadow: 0 0 5px rgba(123, 166, 196, 0.5);
 }
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .table-wrapper { padding: 6px 16px 0; }
+  .table-inner { overflow-x: auto; overflow-y: auto; }
+  .data-table { table-layout: auto; min-width: 640px; }
+  th { padding: 12px 8px; font-size: 13px; letter-spacing: 1px; }
+  td { padding: 10px 8px; font-size: 13px; }
+  .btn-action { padding: 8px 14px; font-size: 13px; min-width: 56px; }
+  .actions { gap: 8px; }
+  .corner-deco { width: 18px; height: 18px; }
+  .corner-deco::before { width: 18px; }
+  .corner-deco::after { height: 18px; }
+}
+
+@media (max-width: 480px) {
+  .table-wrapper { padding: 4px 8px 0; }
+  .data-table { min-width: 560px; }
+  th { padding: 10px 6px; font-size: 12px; }
+  td { padding: 8px 6px; font-size: 12px; }
+  .btn-action { padding: 6px 10px; min-height: 38px; min-width: 48px; font-size: 12px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  th { padding: 8px 8px; }
+  td { padding: 6px 8px; }
+  .btn-action { min-height: 36px; padding: 4px 12px; }
+}
 </style>

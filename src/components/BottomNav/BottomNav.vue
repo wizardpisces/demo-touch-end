@@ -474,5 +474,33 @@ const pressedIndex = ref<number | null>(null)
   color: #fff;
   text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
 }
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .dock-wrapper { padding-bottom: 10px; }
+  .bottom-nav { gap: 20px; padding: 0 20px 12px; }
+  .dock-base { width: 360px; height: 60px; }
+  .nav-item { width: 70px; height: 110px; }
+  .badge-container { bottom: 20px; width: 44px; height: 48px; }
+  .nav-label { font-size: 11px; bottom: -16px; }
+  .badge-reflection { display: none; }
+}
+
+@media (max-width: 480px) {
+  .bottom-nav { gap: 12px; padding: 0 12px 8px; }
+  .dock-base { width: 280px; height: 50px; }
+  .nav-item { width: 60px; height: 90px; }
+  .badge-container { bottom: 16px; width: 38px; height: 42px; }
+  .nav-label { font-size: 10px; bottom: -12px; }
+  .icon-text { font-size: 11px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .dock-wrapper { padding-bottom: 4px; }
+  .bottom-nav { gap: 16px; padding: 0 16px 6px; }
+  .nav-item { height: 80px; }
+  .badge-container { bottom: 14px; width: 40px; height: 44px; }
+  .badge-reflection { display: none; }
+}
 </style>
 

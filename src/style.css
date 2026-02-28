@@ -117,3 +117,42 @@ button {
   0%, 100% { box-shadow: 0 0 10px rgba(0, 240, 255, 0.4); }
   50% { box-shadow: 0 0 25px rgba(0, 240, 255, 0.8); }
 }
+
+/* ========================================
+   响应式断点：适配各种触屏尺寸
+   - <=480px  手机竖屏
+   - <=768px  手机横屏 / 小平板
+   - <=1024px 中型平板
+   - >1024px  大屏工业触控终端（默认）
+   ======================================== */
+
+/* 中型平板 (≤1024px) */
+@media (max-width: 1024px) {
+  #app::before {
+    background-size: 40px 40px;
+  }
+}
+
+/* 手机横屏 / 小平板 (≤768px) */
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px;
+  }
+  #app::before {
+    background-size: 30px 30px;
+  }
+}
+
+/* 手机竖屏 (≤480px) */
+@media (max-width: 480px) {
+  :root {
+    font-size: 13px;
+  }
+}
+
+/* 横屏模式下压缩垂直空间 */
+@media (max-height: 500px) and (orientation: landscape) {
+  :root {
+    font-size: 12px;
+  }
+}

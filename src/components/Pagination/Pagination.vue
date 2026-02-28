@@ -116,4 +116,18 @@ useSwipe(paginationRef, {
   opacity: 0.25;
   cursor: not-allowed;
 }
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .pagination { gap: 8px; padding: 8px 0; }
+  .page-btn { width: 40px; height: 40px; font-size: 18px; }
+  .page-current { min-width: 40px; height: 40px; font-size: 14px; }
+  .page-info { font-size: 12px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .pagination { padding: 4px 0; }
+  .page-btn { width: 36px; height: 36px; }
+  .page-current { min-width: 36px; height: 36px; }
+}
 </style>
