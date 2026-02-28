@@ -1,0 +1,94 @@
+:root {
+  --color-bg: #040c17;
+  --color-bg-card: #08172c;
+  --color-bg-row-alt: #0b1f3a;
+  --color-border: #2365a3;
+  --color-border-dim: rgba(35, 101, 163, 0.5);
+  --color-primary: #00f0ff;
+  --color-primary-dim: rgba(0, 240, 255, 0.2);
+  --color-primary-glow: rgba(0, 240, 255, 0.8);
+  --color-amber: #ffcc00;
+  --color-amber-dim: rgba(255, 204, 0, 0.2);
+  --color-danger: #ff3333;
+  --color-text: #d0e8f8;
+  --color-text-bright: #ffffff;
+  --color-text-muted: #7ba6c4;
+  --color-success: #00f0ff;
+  --color-fail: #ff4d4d;
+  --font-family: 'Microsoft YaHei', 'PingFang SC', system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #app {
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-family);
+  background: var(--color-bg);
+  color: var(--color-text);
+  overflow: hidden;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+/* 全局科技感网格背景 */
+#app {
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(0, 240, 255, 0.25) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 110%, rgba(0, 240, 255, 0.15) 0%, transparent 50%),
+    linear-gradient(180deg, #040c17 0%, #071526 50%, #040c17 100%);
+}
+
+#app::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 扫描线动画 */
+@keyframes scanline {
+  0% { transform: translateY(-100vh); }
+  100% { transform: translateY(100vh); }
+}
+
+#app::after {
+  content: '';
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.4), transparent);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+  animation: scanline 4s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 呼吸动画 */
+@keyframes breathe {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(0, 240, 255, 0.4); }
+  50% { box-shadow: 0 0 25px rgba(0, 240, 255, 0.8); }
+}
