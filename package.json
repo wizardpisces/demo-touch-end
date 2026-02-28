@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "sh script/deploy.sh"
   },
   "dependencies": {
     "@types/vanilla-tilt": "^1.6.2",
