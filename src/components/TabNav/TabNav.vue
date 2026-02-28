@@ -61,21 +61,23 @@ onMounted(() => {
   if (!isTouchDevice.value) initTilt()
 })
 
-// 左右滑动切换 Tab
-useSwipe(navRef, {
-  onSwipeLeft: () => {
-    const idx = currentIndex.value
-    if (idx >= 0 && idx < props.tabs.length - 1) {
-      emit('update:modelValue', props.tabs[idx + 1]!)
-    }
-  },
-  onSwipeRight: () => {
-    const idx = currentIndex.value
-    if (idx > 0) {
-      emit('update:modelValue', props.tabs[idx - 1]!)
-    }
-  },
-})
+// 非触屏设备才启用滑动切换 Tab（手机端用原生横向滚动浏览）
+if (typeof window !== 'undefined' && !('ontouchstart' in window)) {
+  useSwipe(navRef, {
+    onSwipeLeft: () => {
+      const idx = currentIndex.value
+      if (idx >= 0 && idx < props.tabs.length - 1) {
+        emit('update:modelValue', props.tabs[idx + 1]!)
+      }
+    },
+    onSwipeRight: () => {
+      const idx = currentIndex.value
+      if (idx > 0) {
+        emit('update:modelValue', props.tabs[idx - 1]!)
+      }
+    },
+  })
+}
 
 watch(() => props.tabs, async () => {
   await nextTick()
@@ -157,17 +159,18 @@ onBeforeUnmount(() => {
 .tab-btn:hover { transform: translateY(-2px); }
 .tab-btn.active { z-index: 5; transform: translateY(-3px); }
 
-/* 触摸按压态：深按进去的物理反馈 */
+/* 触摸按压态：深按进去的物理反馈，极速响应 */
 .tab-btn:active,
 .tab-btn.pressed {
   transform: translateY(2px) scale(0.96) !important;
-  transition: transform 0.08s ease-out;
+  transition: transform 0.05s ease-out !important;
 }
 .tab-btn.pressed .tab-body {
   box-shadow:
     inset 0 4px 8px rgba(0, 0, 0, 0.9),
     inset 0 -1px 2px rgba(255, 255, 255, 0.1),
     0 2px 4px rgba(0, 0, 0, 0.6) !important;
+  transition: all 0.05s ease-out !important;
 }
 
 .tab-glass-panel { position: absolute; inset: 0; }
@@ -255,22 +258,33 @@ onBeforeUnmount(() => {
 
 /* ===== 响应式 ===== */
 @media (max-width: 768px) {
-  .tab-nav { padding: 8px 12px 14px; }
-  .tab-track { gap: 4px; justify-content: flex-start; padding: 0 8px; }
-  .tab-btn { width: 100px; height: 40px; }
+  .tab-nav { padding: 6px 0 8px; overflow: hidden; }
+  .tab-track-container {
+    display: flex; left: auto; transform: none;
+    width: 100%; overflow-x: auto; overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0 12px;
+  }
+  .tab-track-container::-webkit-scrollbar { display: none; }
+  .tab-track { justify-content: flex-start; gap: 6px; flex-wrap: nowrap; }
+  .tab-btn { width: 90px; height: 40px; }
   .tab-label { font-size: 13px; letter-spacing: 1px; }
   .tab-reflection { display: none; }
+  .tab-depth { display: none; }
 }
 
 @media (max-width: 480px) {
-  .tab-nav { padding: 6px 8px 10px; }
-  .tab-btn { width: 85px; height: 38px; }
+  .tab-nav { padding: 4px 0 6px; }
+  .tab-track-container { padding: 0 8px; }
+  .tab-btn { width: 78px; height: 36px; }
   .tab-label { font-size: 12px; letter-spacing: 0; }
+  .tab-body { clip-path: none; border-radius: 6px; }
 }
 
 @media (max-height: 500px) and (orientation: landscape) {
-  .tab-nav { padding: 4px 12px 8px; }
-  .tab-btn { height: 34px; }
+  .tab-nav { padding: 4px 0 6px; }
+  .tab-btn { height: 32px; }
   .tab-reflection { display: none; }
 }
 </style>

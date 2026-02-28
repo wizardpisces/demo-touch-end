@@ -153,13 +153,15 @@ const pressedIndex = ref<number | null>(null)
   touch-action: manipulation;
 }
 
-/* 触摸按压态：替代桌面的 hover */
+/* 触摸按压态：替代桌面的 hover，要求极速响应 */
 .nav-item.pressed .badge-container {
   transform: translateY(-4px) scale(1.08);
+  transition: transform 0.05s ease-out !important;
 }
 .nav-item.pressed .nav-label {
   color: #fff;
   text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+  transition: all 0.05s ease-out !important;
 }
 
 /* 文字在底部绝对定位，绝不被遮挡 */
@@ -475,31 +477,42 @@ const pressedIndex = ref<number | null>(null)
   text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
 }
 
-/* ===== 响应式 ===== */
+/* ===== 响应式：保留高级科技3D审美，固定在底部 ===== */
 @media (max-width: 768px) {
-  .dock-wrapper { padding-bottom: 10px; }
-  .bottom-nav { gap: 20px; padding: 0 20px 12px; }
-  .dock-base { width: 360px; height: 60px; }
-  .nav-item { width: 70px; height: 110px; }
-  .badge-container { bottom: 20px; width: 44px; height: 48px; }
-  .nav-label { font-size: 11px; bottom: -16px; }
-  .badge-reflection { display: none; }
+  .dock-wrapper { 
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    padding-bottom: env(safe-area-inset-bottom);
+    background: linear-gradient(180deg, transparent 0%, rgba(2, 6, 16, 0.8) 40%, rgba(2, 6, 16, 0.95) 100%);
+    z-index: 100;
+  }
+  .bottom-nav { gap: 15px; padding: 10px 15px 15px; }
+  .dock-base { width: 95%; max-width: 400px; height: 50px; bottom: 5px; transform: translateX(-50%) perspective(800px) rotateX(45deg); }
+  .nav-item { width: 64px; height: 80px; }
+  .badge-container { bottom: 15px; width: 44px; height: 48px; }
+  .nav-label { font-size: 12px; bottom: -8px; }
+  .badge-reflection { filter: blur(2px); opacity: 0.3; }
+  .icon-text { font-size: 13px; }
 }
 
 @media (max-width: 480px) {
-  .bottom-nav { gap: 12px; padding: 0 12px 8px; }
-  .dock-base { width: 280px; height: 50px; }
-  .nav-item { width: 60px; height: 90px; }
-  .badge-container { bottom: 16px; width: 38px; height: 42px; }
-  .nav-label { font-size: 10px; bottom: -12px; }
-  .icon-text { font-size: 11px; }
+  .bottom-nav { gap: 8px; padding: 8px 10px 12px; }
+  .dock-base { width: 95%; max-width: 340px; height: 45px; bottom: 0px; }
+  .nav-item { width: 60px; height: 75px; }
+  .badge-container { bottom: 10px; width: 42px; height: 46px; }
+  .nav-label { font-size: 11px; bottom: -10px; }
+  .icon-text { font-size: 12px; }
 }
 
 @media (max-height: 500px) and (orientation: landscape) {
-  .dock-wrapper { padding-bottom: 4px; }
-  .bottom-nav { gap: 16px; padding: 0 16px 6px; }
-  .nav-item { height: 80px; }
-  .badge-container { bottom: 14px; width: 40px; height: 44px; }
+  .dock-wrapper { position: fixed; bottom: 0; left: 0; width: 100%; padding-bottom: 0; z-index: 100; background: rgba(2, 6, 16, 0.9); }
+  .bottom-nav { gap: 12px; padding: 6px 12px 8px; }
+  .dock-base { width: 85%; max-width: 400px; height: 40px; bottom: 0px; transform: translateX(-50%) perspective(800px) rotateX(40deg); }
+  .nav-item { width: 60px; height: 70px; }
+  .badge-container { bottom: 8px; width: 38px; height: 42px; }
+  .nav-label { font-size: 11px; bottom: -10px; }
   .badge-reflection { display: none; }
 }
 </style>

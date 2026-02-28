@@ -109,7 +109,7 @@ useSwipe(paginationRef, {
   transform: scale(0.9);
   background: rgba(0, 240, 255, 0.3);
   box-shadow: 0 0 20px rgba(0, 240, 255, 0.8), inset 0 0 10px rgba(0, 240, 255, 0.4);
-  transition: transform 0.08s ease-out;
+  transition: all 0.05s ease-out !important;
 }
 
 .page-btn:disabled {

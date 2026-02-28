@@ -85,6 +85,7 @@ void frameRef
 .table-wrapper {
   padding: 8px 32px 0;
   flex: 1;
+  min-height: 0; /* 防止 flex 子项溢出 */
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -94,6 +95,7 @@ void frameRef
 .table-frame {
   position: relative;
   flex: 1;
+  min-height: 0;
   overflow: hidden;
   border: 1px solid rgba(0, 240, 255, 0.4);
   background:
@@ -139,15 +141,15 @@ void frameRef
 
 /* ===== 触摸滚动优化 ===== */
 .table-inner {
+  width: 100%;
   height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch; /* iOS 惯性滚动 */
-  overscroll-behavior: contain; /* 防止滚动穿透 */
-  touch-action: pan-y; /* 仅允许纵向滚动 */
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: auto; /* 允许任意方向的触摸滚动 */
 }
 
-.data-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.data-table { width: 100%; border-collapse: collapse; table-layout: fixed; min-width: 700px; }
 
 thead { position: sticky; top: 0; z-index: 3; }
 thead tr {
@@ -222,7 +224,7 @@ tbody tr.row-touched {
 .btn-action:active {
   transform: translateY(2px) scale(0.95);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(0, 0, 0, 0.3);
-  transition: transform 0.08s ease-out;
+  transition: all 0.05s ease-out !important;
 }
 
 .btn-edit {
@@ -256,9 +258,7 @@ tbody tr.row-touched {
 
 /* ===== 响应式 ===== */
 @media (max-width: 768px) {
-  .table-wrapper { padding: 6px 16px 0; }
-  .table-inner { overflow-x: auto; overflow-y: auto; }
-  .data-table { table-layout: auto; min-width: 640px; }
+  .table-wrapper { padding: 6px 8px 0; }
   th { padding: 12px 8px; font-size: 13px; letter-spacing: 1px; }
   td { padding: 10px 8px; font-size: 13px; }
   .btn-action { padding: 8px 14px; font-size: 13px; min-width: 56px; }
@@ -269,9 +269,8 @@ tbody tr.row-touched {
 }
 
 @media (max-width: 480px) {
-  .table-wrapper { padding: 4px 8px 0; }
-  .data-table { min-width: 560px; }
-  th { padding: 10px 6px; font-size: 12px; }
+  .table-wrapper { padding: 4px 4px 0; }
+  th { padding: 10px 6px; font-size: 12px; letter-spacing: 0; }
   td { padding: 8px 6px; font-size: 12px; }
   .btn-action { padding: 6px 10px; min-height: 38px; min-width: 48px; font-size: 12px; }
 }

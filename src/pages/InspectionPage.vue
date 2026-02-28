@@ -87,14 +87,14 @@ async function handleDelete(row: InspectionRecord) {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  /* 更深的科技暗黑背景 */
+  height: 100dvh; /* 手机端使用 dynamic viewport height，避免地址栏遮挡 */
   background: linear-gradient(180deg, #020610 0%, #061020 50%, #020610 100%);
   overflow: hidden;
 }
 
 .main-content {
   flex: 1;
-  padding: 16px 32px 0; /* 减少顶部 Padding 腾出空间 */
+  padding: 16px 32px 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -106,8 +106,19 @@ async function handleDelete(row: InspectionRecord) {
   margin-bottom: 16px;
 }
 
-/* 确保分页和底部导航之间有足够的空间，避免遮挡 */
 :deep(.pagination) {
   margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+  :deep(.pagination) {
+    margin-bottom: 90px; /* 留出底部 fixed nav 的空间 */
+  }
+}
+
+@media (max-width: 480px) {
+  :deep(.pagination) {
+    margin-bottom: 80px;
+  }
 }
 </style>
