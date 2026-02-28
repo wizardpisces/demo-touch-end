@@ -13,11 +13,15 @@
         :class="[
           { active: modelValue === item.key },
           `theme-${item.color || 'cyan'}`,
-          { hovered: hoveredIndex === index }
+          { hovered: hoveredIndex === index },
+          { pressed: pressedIndex === index }
         ]"
         @click="$emit('update:modelValue', item.key)"
         @mouseenter="hoveredIndex = index"
         @mouseleave="hoveredIndex = null"
+        @touchstart.passive="pressedIndex = index; hoveredIndex = index"
+        @touchend.passive="pressedIndex = null; hoveredIndex = null"
+        @touchcancel.passive="pressedIndex = null; hoveredIndex = null"
       >
         <div class="badge-container">
           <!-- 环境发光垫片 -->
@@ -80,6 +84,7 @@ defineEmits<{
 }>()
 
 const hoveredIndex = ref<number | null>(null)
+const pressedIndex = ref<number | null>(null)
 </script>
 
 <style scoped>
@@ -141,9 +146,20 @@ const hoveredIndex = ref<number | null>(null)
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  width: 80px;
-  height: 140px; /* 固定高度，给放大留出空间 */
+  width: 90px;
+  height: 140px;
   z-index: 5;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* 触摸按压态：替代桌面的 hover */
+.nav-item.pressed .badge-container {
+  transform: translateY(-4px) scale(1.08);
+}
+.nav-item.pressed .nav-label {
+  color: #fff;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
 }
 
 /* 文字在底部绝对定位，绝不被遮挡 */

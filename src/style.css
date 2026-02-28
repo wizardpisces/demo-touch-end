@@ -33,6 +33,12 @@ html, body, #app {
   background: var(--color-bg);
   color: var(--color-text);
   overflow: hidden;
+  /* 触屏优化 */
+  -webkit-tap-highlight-color: transparent; /* 移除 iOS 点击高亮 */
+  -webkit-touch-callout: none; /* 禁止长按弹出菜单 */
+  touch-action: manipulation; /* 禁用双击缩放，保留滚动和单击 */
+  user-select: none; /* 工业触屏不需要选中文字 */
+  -webkit-user-select: none;
 }
 
 button {
@@ -41,6 +47,25 @@ button {
   border: none;
   background: none;
   color: inherit;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== 全局触摸涟漪效果 ===== */
+@keyframes touch-ripple {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+}
+
+.touch-ripple {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.6) 0%, transparent 70%);
+  pointer-events: none;
+  animation: touch-ripple 0.6s ease-out forwards;
+  z-index: 100;
 }
 
 /* 全局科技感网格背景 */
